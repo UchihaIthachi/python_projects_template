@@ -21,9 +21,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > src/VERSION
+        run: |
+          mkdir -p src
+          echo "0.1.0" > src/VERSION
       - name: Install project
         run: make install
+      - name: Install linting tools
+        run: |
+          pip install flake8 black mypy
       - name: Run linter
         run: make lint
 
@@ -41,15 +46,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > src/VERSION
+        run: |
+          mkdir -p src
+          echo "0.1.0" > src/VERSION
       - name: Install project
         run: make install
       - name: Run tests
         run: make test
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v3
-        # with:
-        #   fail_ci_if_error: true
 
   tests_mac:
     needs: linter
@@ -65,7 +70,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > src/VERSION
+        run: |
+          mkdir -p src
+          echo "0.1.0" > src/VERSION
       - name: Install project
         run: make install
       - name: Run tests
@@ -85,10 +92,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > src/VERSION
+        run: |
+          mkdir -p src
+          echo "0.1.0" > src/VERSION
       - name: Install Pip
         run: python -m pip install --upgrade pip
       - name: Install project
-        run: pip install -e .[test]
-      - name: run tests
+        run: pip install -e .[dev]
+      - name: Run tests
         run: pytest -s -vvvv -l --tb=long tests
