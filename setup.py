@@ -1,18 +1,33 @@
-"""Python setup.py for healthcare_management package"""
 import io
 import os
 from setuptools import setup, find_packages
 
-# Read the version from VERSION file
+# Function to read the contents of a file
+def read(*paths, **kwargs):
+    with io.open(
+        os.path.join(os.path.dirname(__file__), *paths),
+        encoding=kwargs.get("encoding", "utf8"),
+    ) as open_file:
+        return open_file.read().strip()
+
+# Read the version from the VERSION file
 def read_version():
-    version_file = os.path.join(os.path.dirname(__file__), "healthcare_management", "VERSION")
+    version_file = os.path.join(os.path.dirname(__file__), "pythonassesment", "VERSION")
     with io.open(version_file, encoding="utf-8") as f:
         version = f.read().strip()
     return version
 
+# Function to read the requirements from a file
+def read_requirements(path):
+    return [
+        line.strip()
+        for line in read(path).split("\n")
+        if not line.startswith(('"', "#", "-", "git+"))
+    ]
+
 setup(
-    name="src",
-    version=open('pythonassesment/VERSION').read().strip(),
+    name="pythonassesment",
+    version=read_version(),
     description="Awesome pythonassesment created by UchihaIthachi",
     url="https://github.com/UchihaIthachi/pythonAssesment/",
     long_description=read("README.md"),
@@ -22,7 +37,7 @@ setup(
     install_requires=read_requirements("requirements.txt"),
     entry_points={
         'console_scripts': [
-            'healthcare_management = healthcare_management.__main__:main',
+            'pythonassesment = pythonassesment.__main__:main',
         ],
     },
     classifiers=[
@@ -32,6 +47,7 @@ setup(
     ],
     python_requires='>=3.6',
 )
+
 
 
 # """Python setup.py for pythonassesment package"""
