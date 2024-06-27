@@ -11,7 +11,7 @@ def read_version():
     return version
 
 setup(
-    name="pythonassesment",
+    name="src",
     version=open('pythonassesment/VERSION').read().strip(),
     description="Awesome pythonassesment created by UchihaIthachi",
     url="https://github.com/UchihaIthachi/pythonAssesment/",
@@ -67,7 +67,7 @@ setup(
 
 # def read(*paths, **kwargs):
 #     """Read the contents of a text file safely.
-#     >>> read("pythonassesment", "VERSION")
+#     >>> read("src", "VERSION")
 #     '0.1.0'
 #     >>> read("README.md")
 #     ...
@@ -92,7 +92,7 @@ setup(
 
 # setup(
 #     name="pythonassesment",
-#     version=read("pythonassesment", "VERSION"),
+#     version=read("src", "VERSION"),
 #     description="Awesome pythonassesment created by UchihaIthachi",
 #     url="https://github.com/UchihaIthachi/pythonAssesment/",
 #     long_description=read("README.md"),
