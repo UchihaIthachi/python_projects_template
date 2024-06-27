@@ -31,7 +31,8 @@ def read_requirements(path):
 
 setup(
     name="pythonassesment",
-    version=read("pythonassesment", "VERSION"),
+    version=open('pythonassesment/VERSION').read().strip(),
+
     description="Awesome pythonassesment created by UchihaIthachi",
     url="https://github.com/UchihaIthachi/pythonAssesment/",
     long_description=read("README.md"),
