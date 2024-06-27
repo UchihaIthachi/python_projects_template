@@ -12,7 +12,7 @@ def read(*paths, **kwargs):
 
 # Read the version from the VERSION file
 def read_version():
-    version_file = os.path.join(os.path.dirname(__file__), "pythonassesment", "VERSION")
+    version_file = os.path.join(os.path.dirname(__file__), "src", "VERSION")
     with io.open(version_file, encoding="utf-8") as f:
         version = f.read().strip()
     return version

@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > pythonassesment/VERSION
+        run: echo "0.1.0" > src/VERSION
       - name: Install project
         run: make install
       - name: Run linter
@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > pythonassesment/VERSION
+        run: echo "0.1.0" > src/VERSION
       - name: Install project
         run: make install
       - name: Run tests
@@ -65,7 +65,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > pythonassesment/VERSION
+        run: echo "0.1.0" > src/VERSION
       - name: Install project
         run: make install
       - name: Run tests
@@ -85,7 +85,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
-        run: echo "0.1.0" > pythonassesment/VERSION
+        run: echo "0.1.0" > src/VERSION
       - name: Install Pip
         run: python -m pip install --upgrade pip
       - name: Install project
