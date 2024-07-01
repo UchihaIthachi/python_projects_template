@@ -12,8 +12,9 @@ def read(*paths):
 def read_version():
     version_file = os.path.join(os.path.dirname(__file__), "src", "VERSION")
     with io.open(version_file, encoding="utf-8") as f:
-        version = f.read().strip()
+        version = f.read().strip().strip('"')
     return version
+
 
 setup(
     name="pythonassessment",
