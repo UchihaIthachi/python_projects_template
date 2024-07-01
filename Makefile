@@ -1,5 +1,13 @@
+ifeq ($(GITHUB_ACTIONS),true)
+  ifeq ($(OS),Windows_NT)
+	SHELL := cmd.exe
+  else
+	SHELL := /bin/sh
+  endif
+endif
+
 .ONESHELL:
-ENV_PREFIX=$(shell python -c "if __import__('pathlib').Path('.venv/bin/pip').exists(): print('.venv/bin/')")
+ENV_PREFIX=$(shell python -c "import sys; from pathlib import Path; print('.venv/bin/' if Path('.venv/bin/pip').exists() else '')")
 USING_POETRY=$(shell grep "tool.poetry" pyproject.toml && echo "yes")
 
 .PHONY: help
@@ -8,7 +16,6 @@ help:             ## Show the help.
 	@echo ""
 	@echo "Targets:"
 	@fgrep "##" Makefile | fgrep -v fgrep
-
 
 .PHONY: show
 show:             ## Show the current environment.
@@ -38,15 +45,13 @@ lint:             ## Run pep8, black, mypy linters.
 
 .PHONY: test
 test: lint install-test-deps  ## Run tests and generate coverage report.
-	python -m pytest -v --cov=src --tb=short --maxfail=1 tests/
-	python -m coverage xml
-	python -m coverage html
-
+	$(ENV_PREFIX)python -m pytest -v --cov=src -q --no-summary tests/
+	$(ENV_PREFIX)python -m coverage xml
+	$(ENV_PREFIX)python -m coverage html
 
 .PHONY: install-test-deps
 install-test-deps: .requirements-test.txt
-	pip install -r .requirements-test.txt
-
+	$(ENV_PREFIX)pip install -r .requirements-test.txt
 
 .PHONY: watch
 watch:            ## Run tests on every change.
@@ -80,7 +85,7 @@ virtualenv: .venv   ## Create a virtual environment.
 
 .PHONY: release
 release:          ## Create a new tag for release.
-	@echo "WARNING: This operation will create s version tag and push to github"
+	@echo "WARNING: This operation will create a version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 	@echo "$${TAG}" > src/VERSION
 	@$(ENV_PREFIX)gitchangelog > HISTORY.md
