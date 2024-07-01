@@ -7,7 +7,7 @@ ifeq ($(GITHUB_ACTIONS),true)
 endif
 
 .ONESHELL:
-ENV_PREFIX=$(shell python -c "import sys; from pathlib import Path; print('.venv/bin/' if Path('.venv/bin/pip').exists() else '')")
+ENV_PREFIX=$(shell python -c "import sys; from pathlib import Path; print('.venv/Scripts/' if sys.platform == 'win32' else '.venv/bin/')")
 USING_POETRY=$(shell grep "tool.poetry" pyproject.toml && echo "yes")
 
 .PHONY: help
@@ -117,13 +117,12 @@ switch-to-poetry:   ## Switch to poetry package manager.
 init:             ## Initialize the project based on an application template.
 	@./.github/init.sh
 
-.requirements-test.txt:
-	echo "pytest" > .requirements-test.txt
-	echo "coverage" >> .requirements-test.txt
-	echo "flake8" >> .requirements-test.txt
-	echo "black" >> .requirements-test.txt
-	echo "mypy" >> .requirements-test.txt
-
+requirements-test.txt:
+	echo "pytest" > requirements-test.txt
+	echo "coverage" >> requirements-test.txt
+	echo "flake8" >> requirements-test.txt
+	echo "black" >> requirements-test.txt
+	echo "mypy" >> requirements-test.txt
 
 # This project has been generated from rochacbruno/python-project-template
 # __author__ = 'rochacbruno'
