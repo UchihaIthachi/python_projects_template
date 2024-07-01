@@ -38,10 +38,15 @@ lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)mypy --ignore-missing-imports src/
 
 .PHONY: test
-test: lint        ## Run tests and generate coverage report.
+test: lint install-test-deps  ## Run tests and generate coverage report.
 	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=src -l --tb=short --maxfail=1 tests/
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
+
+.PHONY: install-test-deps
+install-test-deps:      ## Install test dependencies.
+	pip install -r .requirements-test.txt
+
 
 .PHONY: watch
 watch:            ## Run tests on every change.
