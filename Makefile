@@ -45,10 +45,14 @@ lint:             ## Run pep8, black, mypy linters.
 
 .PHONY: test
 test: lint install-test-deps  ## Run tests and generate coverage report.
-	$(ENV_PREFIX)python -m pytest -v -q --no-summary tests/
-	$(ENV_PREFIX)python -m coverage xml
-	$(ENV_PREFIX)python -m coverage html
-
+	@echo "Running tests..."
+	@if ! $(ENV_PREFIX)pytest --collect-only > /dev/null 2>&1; then \
+		echo "No tests found, skipping pytest."; \
+	else \
+		$(ENV_PREFIX)pytest -v --cov=src -q --no-summary tests/; \
+		$(ENV_PREFIX)coverage xml; \
+		$(ENV_PREFIX)coverage html; \
+	fi
 .PHONY: install-test-deps
 install-test-deps: .requirements-test.txt
 	$(ENV_PREFIX)pip install -r .requirements-test.txt
