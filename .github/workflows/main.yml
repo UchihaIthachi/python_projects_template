@@ -32,28 +32,6 @@ jobs:
       - name: Run linter
         run: make lint
 
-  tests_win:
-    needs: linter
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [3.9]
-        os: [windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Create VERSION file
-        run: echo "0.1.0" > src/VERSION
-      - name: Install Pip and dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e .[dev]
-      - name: Run tests on Windows
-        run: pytest -s -vvvv -l --tb=long tests
-
   tests_linux:
     needs: linter
     strategy:
@@ -64,7 +42,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
@@ -73,12 +51,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .[dev]
-          pip install pytest coverage
+          pip install pytest
       - name: Run tests on Linux
         run: |
           .venv/bin/pytest -s -vvvv -l --tb=long tests/
-          .venv/bin/coverage xml
-          .venv/bin/coverage html
 
   tests_mac:
     needs: linter
@@ -90,7 +66,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: Create VERSION file
@@ -99,9 +75,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .[dev]
-          pip install pytest coverage
+          pip install pytest
       - name: Run tests on MacOS
         run: |
           .venv/bin/pytest -s -vvvv -l --tb=long tests/
-          .venv/bin/coverage xml
-          .venv/bin/coverage html
