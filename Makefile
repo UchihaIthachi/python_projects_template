@@ -38,9 +38,9 @@ lint:             ## Run pep8, black, mypy linters.
 
 .PHONY: test
 test: lint install-test-deps  ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov=src --tb=short --maxfail=1 tests/
-	$(ENV_PREFIX)coverage xml
-	$(ENV_PREFIX)coverage html
+	python -m pytest -v --cov=src --tb=short --maxfail=1 tests/
+	python -m coverage xml
+	python -m coverage html
 
 
 .PHONY: install-test-deps
