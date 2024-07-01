@@ -44,7 +44,7 @@ lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)mypy --ignore-missing-imports src/
 
 .PHONY: test
-test: lint install-test-deps  ## Run tests and generate coverage report.
+test: lint install-test-deps  ## Run tests and generate coverage report
 	@echo "Running tests..."
 	@if ! $(ENV_PREFIX)pytest --collect-only > /dev/null 2>&1; then \
 		echo "No tests found, skipping pytest."; \

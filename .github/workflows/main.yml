@@ -50,8 +50,6 @@ jobs:
         run: make test
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v4
-        # with:
-        #   fail_ci_if_error: true
 
   tests_mac:
     needs: linter
@@ -89,4 +87,4 @@ jobs:
       - name: Install project
         run: pip install -e .[test]
       - name: run tests
-        run: python -m pytest -s -vvvv -l --tb=long tests
+        run: make test
