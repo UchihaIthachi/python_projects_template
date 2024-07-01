@@ -54,8 +54,8 @@ test: lint install-test-deps  ## Run tests and generate coverage report
 		$(ENV_PREFIX)coverage html; \
 	fi
 .PHONY: install-test-deps
-install-test-deps: .requirements-test.txt
-	$(ENV_PREFIX)pip install -r .requirements-test.txt
+install-test-deps: requirements-test.txt
+	$(ENV_PREFIX)pip install -r requirements-test.txt
 
 .PHONY: watch
 watch:            ## Run tests on every change.
