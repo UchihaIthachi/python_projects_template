@@ -44,7 +44,7 @@ test: lint install-test-deps  ## Run tests and generate coverage report.
 	$(ENV_PREFIX)coverage html
 
 .PHONY: install-test-deps
-install-test-deps:      ## Install test dependencies.
+install-test-deps: .requirements-test.txt
 	pip install -r .requirements-test.txt
 
 
@@ -121,11 +121,11 @@ init:             ## Initialize the project based on an application template.
 	@./.github/init.sh
 
 .requirements-test.txt:
-    echo "pytest" > .requirements-test.txt
-    echo "coverage" >> .requirements-test.txt
-    echo "flake8" >> .requirements-test.txt
-    echo "black" >> .requirements-test.txt
-    echo "mypy" >> .requirements-test.txt
+	echo "pytest" > .requirements-test.txt
+	echo "coverage" >> .requirements-test.txt
+	echo "flake8" >> .requirements-test.txt
+	echo "black" >> .requirements-test.txt
+	echo "mypy" >> .requirements-test.txt
 
 
 # This project has been generated from rochacbruno/python-project-template

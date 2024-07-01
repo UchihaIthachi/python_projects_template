@@ -1,46 +1,36 @@
+from setuptools import setup, find_packages
 import io
 import os
-from setuptools import setup, find_packages
 
-# Function to read the contents of a file
-def read(*paths, **kwargs):
+def read(*paths):
     with io.open(
         os.path.join(os.path.dirname(__file__), *paths),
-        encoding=kwargs.get("encoding", "utf8"),
+        encoding="utf8"
     ) as open_file:
         return open_file.read().strip()
 
-# Read the version from the VERSION file
 def read_version():
     version_file = os.path.join(os.path.dirname(__file__), "src", "VERSION")
     with io.open(version_file, encoding="utf-8") as f:
         version = f.read().strip()
     return version
 
-# Function to read the requirements from a file
-def read_requirements(path):
-    return [
-        line.strip()
-        for line in read(path).split("\n")
-        if not line.startswith(('"', "#", "-", "git+"))
-    ]
-
 setup(
-    name="pythonassesment",
+    name="pythonassessment",
     version=read_version(),
-    description="Awesome pythonassesment created by UchihaIthachi",
-    url="https://github.com/UchihaIthachi/pythonAssesment/",
+    description="Awesome Python Assessment created by UchihaIthachi",
+    url="https://github.com/UchihaIthachi/pythonAssessment/",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="UchihaIthachi",
     packages=find_packages(exclude=["tests", ".github"]),
-    install_requires=read_requirements("requirements.txt"),
+    install_requires=read("requirements.txt").splitlines(),
     extras_require={
-        "dev": read_requirements("requirements-dev.txt"),
+        "dev": read("requirements-dev.txt").splitlines(),
     },
     entry_points={
         'console_scripts': [
-            'pythonassesment = pythonassesment.__main__:main',
+            'pythonassessment = pythonassessment.__main__:main',
         ],
     },
     classifiers=[
