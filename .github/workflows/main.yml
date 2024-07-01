@@ -86,5 +86,7 @@ jobs:
         run: python.exe -m pip install --user --upgrade pip
       - name: Install project
         run: pip install -e .[test]
-      - name: run tests
+      - name: Install project
+        run: make install
+      - name: Run tests
         run: make test
