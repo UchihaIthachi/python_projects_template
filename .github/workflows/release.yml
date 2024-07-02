@@ -106,5 +106,4 @@ jobs:
 
       - name: Run tests if any
         run: |
-          pytest_cmd="python -m pytest -s -vvvv -l --tb=long tests || echo 'No tests to run'"
-          eval $pytest_cmd
+          make test-win

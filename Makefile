@@ -54,6 +54,11 @@ test: lint install-test-deps  ## Run tests and generate coverage report
 		$(ENV_PREFIX)python -m coverage html; \
 	fi
 
+.PHONY: test-win
+
+test-win:
+	@python -m pytest -s -vvvv -l --tb=long tests || echo 'No tests to run'
+
 .PHONY: install-test-deps
 install-test-deps: requirements-test.txt
 	$(ENV_PREFIX)pip install -r requirements-test.txt
