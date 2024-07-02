@@ -99,11 +99,6 @@ jobs:
           pip install -e .[dev]
           pip install pytest coverage
 
-      - name: Print working directory
-        run: |
-          pwd  # For Unix-like systems
-          cd  # For Windows
-
       - name: Run tests if any
         run: |
           make test-win
