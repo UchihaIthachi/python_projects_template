@@ -90,5 +90,7 @@ jobs:
         run: pip list
       - name: Install project
         run: make install
+      - name: Debug2
+        run: pip list
       - name: Run tests
         run: make test
